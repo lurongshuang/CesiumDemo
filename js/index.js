@@ -134,6 +134,9 @@ function init() {
 	drawPoint();
 	jumpCh();
 
+}
+//自转
+function rotation() {
 	onTickCallback = () => {
 		var spinRate = 1;
 		var currentTime = viewer.clock.currentTime.secondsOfDay;
@@ -178,7 +181,7 @@ function jumpbj() {
 	})
 }
 
-// 
+// 定位到高程数据
 function jumpDem() {
 	//移除自转
 	viewer.clock.onTick.removeEventListener(onTickCallback);
@@ -209,7 +212,7 @@ function jumpCh() {
 		},
 	})
 
-
+	rotation();
 }
 
 //绘制框
