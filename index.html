@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+		<title>CesiumDemo</title>
+		<script src="js/Cesium/Cesium.js"></script>
+		<script src="https://api.tianditu.gov.cn/cdn/plugins/cesium/cesiumTdt.js"></script>
+		<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/@jiaminghi/data-view/dist/datav.map.vue.js"></script>
+
+	</head>
+	<body>
+		<div id="app">
+			<dv-border-box-11 title="视图">
+				<div style="display: flex; flex-direction: row; width: 100%; padding:5% 20px;  height: 90%;">
+					<div>
+						<dv-border-box-3 style="width: 300px; margin: 0px 10px; height: 33.3%;">
+							<dv-decoration-9 style="width:150px;height:150px;">66%</dv-decoration-9>
+						</dv-border-box-3>
+						<dv-border-box-9 style="width: 300px; margin: 10px 10px; height: 33.3%;">
+							<dv-water-level-pond :config="config" style="width:200px;height:200px" />
+						</dv-border-box-9>
+						<dv-border-box-8 style="width: 300px; margin: 10px 10px; height: 33.3%; padding: 10px;">
+							<dv-scroll-board :config="listConfig" style="width:500px;height:220px" />
+						</dv-border-box-8>
+					</div>
+					<div style="flex: 1; height: 100%; margin-top: 20px;" id="cesiumContainer"></div>
+					<!-- <div id="trackPopUp" style="display:none;">
+						<div id="trackPopUpContent" class="leaflet-popup" style="top:5px;left:0;">
+							<a class="leaflet-popup-close-button" href="#">×</a>
+							<div class="leaflet-popup-content-wrapper">
+								<div id="trackPopUpLink" class="leaflet-popup-content" style="max-width:100%;">
+									<div style="padding-bottom: 5px; font-size: 20px; color: #8aaafb;">hls 监控</div>
+									<video class="viewVideo" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+										autoplay="true"></video>
+								</div>
+							</div>
+							<div class="leaflet-popup-tip-container">
+								<div class="leaflet-popup-tip"></div>
+							</div>
+						</div>
+					</div> -->
+
+
+					<div>
+						<dv-border-box-5 style="width: 300px; margin: 0px 10px; height: 50%;">
+							<dv-decoration-12 style="width:150px;height:150px;" />
+						</dv-border-box-5>
+						<dv-decoration-4 :reverse="true" style="height:5px;  margin:10px;"></dv-decoration-4>
+						<dv-border-box-5 style="width: 300px; margin: 0px 10px; height: 50%; padding: 10px;"
+							:reverse="true">
+							<dv-capsule-chart :config="capConfig" style="width:100%;height:200px" />
+						</dv-border-box-5>
+					</div>
+				</div>
+			</dv-border-box-11>
+
+		</div>
+		<div style="position: absolute; right: 20px; top: 60px; color: #FFFFFF;">
+			<div><button onclick="jumpbj()">定位到项目地图</button></div>
+		</div>
+
+	</body>
+	<script src="js/index.js"></script>
+	<script type="module">
+		var app = new Vue({
+			el: '#app',
+			data() {
+				return {
+					config: {
+						data: [66, 45],
+						shape: 'roundRect'
+					},
+					listConfig: {
+						header: ['列1', '列2', '列3'],
+						data: [
+							['<span style="color:#37a2da;">行1列1</span>', '行1列2', '行1列3'],
+							['行2列1', '<span style="color:#32c5e9;">行2列2</span>', '行2列3'],
+							['行3列1', '行3列2', '<span style="color:#67e0e3;">行3列3</span>'],
+							['行4列1', '<span style="color:#9fe6b8;">行4列2</span>', '行4列3'],
+							['<span style="color:#ffdb5c;">行5列1</span>', '行5列2', '行5列3'],
+							['行6列1', '<span style="color:#ff9f7f;">行6列2</span>', '行6列3'],
+							['行7列1', '行7列2', '<span style="color:#fb7293;">行7列3</span>'],
+							['行8列1', '<span style="color:#e062ae;">行8列2</span>', '行8列3'],
+							['<span style="color:#e690d1;">行9列1</span>', '行9列2', '行9列3'],
+							['行10列1', '<span style="color:#e7bcf3;">行10列2</span>', '行10列3']
+						],
+						index: true,
+						columnWidth: [50],
+						align: ['center']
+					},
+					capConfig: {
+						data: [{
+								name: '南阳',
+								value: 167
+							},
+							{
+								name: '周口',
+								value: 123
+							},
+							{
+								name: '漯河',
+								value: 98
+							},
+							{
+								name: '郑州',
+								value: 75
+							},
+							{
+								name: '西峡',
+								value: 66
+							},
+						],
+						colors: ['#e062ae', '#fb7293', '#e690d1', '#32c5e9', '#96bfff'],
+						unit: '单位',
+						showValue: true
+					}
+				};
+			},
+
+		})
+	</script>
+</html>
+<style>
+	@import url(js/Cesium/Widgets/widgets.css);
+
+	html,
+	body,
+	#cesiumContainer {
+		width: 90%;
+		height: 90%;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	.cesium-infoBox {
+		display: none !important;
+	}
+
+	.leaflet-popup-tip-container {
+		/*修改弹窗位置*/
+		margin: 0 auto;
+		width: 200px;
+		height: 50px;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.leaflet-popup-tip {
+		background: white;
+		box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+		width: 17px;
+		height: 17px;
+		padding: 1px;
+		margin: -10px auto 0;
+		-webkit-transform: rotate(45deg);
+		-moz-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		-o-transform: rotate(45deg);
+		transform: rotate(45deg);
+	}
+
+	.viewVideo {
+		width: 320px;
+	}
+
+	/*leaflet风格气泡窗口样式模板*/
+	.leaflet-popup {
+		position: absolute;
+		text-align: center;
+		z-index: 1000;
+	}
+
+	.leaflet-popup-close-button {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 10px 10px 0 0;
+		text-align: center;
+		width: 18px;
+		height: 14px;
+		font: 16px/14px Tahoma, Verdana, sans-serif;
+		color: #c3c3c3;
+		text-decoration: none;
+		font-weight: bold;
+		background: transparent;
+	}
+
+	.leaflet-popup-content-wrapper {
+		text-align: center;
+		overflow-y: auto;
+		background: #2e6099;
+		box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+		padding: 10px;
+		text-align: left;
+		border-radius: 12px;
+	}
+
+	.leaflet-popup-content {
+		margin: 1px 10px;
+		line-height: 1.4;
+	}
+
+
+	html,
+	body {
+		width: 100%;
+		height: 100%;
+	}
+
+	#app {
+		width: 97%;
+		height: 97%;
+		margin: 0px;
+		padding: 1%;
+		background-image: url('./img/bg.png');
+	}
+
+	.border-box-content {
+		color: rgb(66, 185, 131);
+		font-size: 40px;
+		font-weight: bold;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
