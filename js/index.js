@@ -146,6 +146,7 @@ function rotation() {
 	}
 
 	viewer.clock.multiplier = 200; //速度
+	// viewer.clock.multiplier = 0.1; //速度
 	viewer.clock.shouldAnimate = true;
 	var previousTime = viewer.clock.currentTime.secondsOfDay;
 	viewer.clock.onTick.addEventListener(onTickCallback);
