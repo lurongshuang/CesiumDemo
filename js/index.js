@@ -10,6 +10,9 @@ var imgMap = new Cesium.UrlTemplateImageryProvider({
 	tilingScheme: new Cesium.WebMercatorTilingScheme(),
 	maximumLevel: 18,
 })
+var terrainProvider = new Cesium.CesiumTerrainProvider({
+	url: "http://localhost:9003/terrain/UBd2N8cd"
+});
 var viewer;
 
 $(function() {
@@ -18,17 +21,19 @@ $(function() {
 
 var onTickCallback;
 
+
 // cesium 初始化
 function init() {
 	viewer = new Cesium.Viewer("cesiumContainer", {
-		imageryProvider: imgMap,
+		// imageryProvider: imgMap,
+		terrainProvider: terrainProvider,
 		contextOptions: {
 			webgl: {
 				alpha: true
 			}
 		},
 		creditContainer: "cesiumContainer",
-		selectionIndicator: true,
+		selectionIndicator: false,
 		geocoder: false, //是否显示地名查找控件
 		navigationHelpButton: false, //是否显示帮助信息控件
 		infoBox: true, //是否显示点击要素之后显示的信息
@@ -82,28 +87,19 @@ function init() {
 	viewer.imageryLayers.addImageryProvider(cta_w)
 
 	// 叠加地形服务
-	var terrainUrls = new Array()
-	for (var i = 0; i < subdomains.length; i++) {
-		var url =
-			tdtUrl.replace('{s}', subdomains[i]) +
-			'DataServer?T=elv_c&tk=' +
-			token
-		terrainUrls.push(url)
-	}
-	
-	var provider = new Cesium.GeoTerrainProvider({
-		urls: terrainUrls,
-	})
-	viewer.terrainProvider = provider
-	
-	
-	// var terrainProvider = new Cesium.CesiumTerrainProvider({
-	//     url: 'http://localhost:8081/wzf_dem'
-	//     });
-	// viewer.terrainProvider = terrainProvider;
-	
-	
-	
+	// var terrainUrls = new Array()
+	// for (var i = 0; i < subdomains.length; i++) {
+	// 	var url =
+	// 		tdtUrl.replace('{s}', subdomains[i]) +
+	// 		'DataServer?T=elv_c&tk=' +
+	// 		token
+	// 	terrainUrls.push(url)
+	// }
+	// var provider = new Cesium.GeoTerrainProvider({
+	// 	urls: terrainUrls,
+	// })
+	// viewer.terrainProvider = provider
+
 
 
 	//坐标监听
@@ -175,6 +171,23 @@ function jumpbj() {
 			heading: Cesium.Math.toRadians(348.4202942851978),
 			pitch: Cesium.Math.toRadians(-89.74026687972041),
 			roll: Cesium.Math.toRadians(8.5),
+		},
+		complete: function callback() {
+			// 定位完成之后的回调函数
+		},
+	})
+}
+
+// 
+function jumpDem() {
+	//移除自转
+	viewer.clock.onTick.removeEventListener(onTickCallback);
+	viewer.camera.flyTo({
+		destination: Cesium.Cartesian3.fromDegrees(116.02526207105684, 40.05934464798224, 800),
+		orientation: {
+			heading: Cesium.Math.toRadians(348.4202942851978),
+			pitch: Cesium.Math.toRadians(-10.74026687972041),
+			roll: Cesium.Math.toRadians(0),
 		},
 		complete: function callback() {
 			// 定位完成之后的回调函数
