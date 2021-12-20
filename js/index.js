@@ -10,9 +10,14 @@ var imgMap = new Cesium.UrlTemplateImageryProvider({
 	tilingScheme: new Cesium.WebMercatorTilingScheme(),
 	maximumLevel: 18,
 })
+
+//北京部分地形  "http://localhost:9003/terrain/UBd2N8cd"
+//辽宁部分地形 http://localhost:9003/terrain/vEfTzfee
+//山西省地形 http://localhost:9003/terrain/vEfTzfee
 var terrainProvider = new Cesium.CesiumTerrainProvider({
-	url: "http://localhost:9003/terrain/UBd2N8cd"
+	url: "http://localhost:9003/terrain/jz9a7fEd",
 });
+
 var viewer;
 
 $(function() {
@@ -20,7 +25,6 @@ $(function() {
 })
 
 var onTickCallback;
-
 
 // cesium 初始化
 function init() {
@@ -38,7 +42,7 @@ function init() {
 		navigationHelpButton: false, //是否显示帮助信息控件
 		infoBox: true, //是否显示点击要素之后显示的信息
 		homeButton: false, //首页位置，点击之后将视图跳转到默认视角。
-		sceneModePicker: false, //切换2D、3D 和 Columbus View (CV) 模式。
+		sceneModePicker: true, //切换2D、3D 和 Columbus View (CV) 模式。
 		baseLayerPicker: false, //选择三维数字地球的底图（imagery and terrain）。
 		animation: false, //控制视窗动画的播放速度。
 		creditsDisplay: false, //展示商标版权和数据源。
