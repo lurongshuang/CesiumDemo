@@ -48,6 +48,8 @@ function init() {
 		creditsDisplay: false, //展示商标版权和数据源。
 		timeline: false, //展示当前时间和允许用户在进度条上拖动到任何一个指定的时间。
 		fullscreenButton: true, //视察全屏按钮
+		shadows: true,
+		shouldAnimate: false,
 		clock: new Cesium.Clock({
 			currentTime: Cesium.JulianDate.fromDate(new Date())
 		})
@@ -131,13 +133,38 @@ function init() {
 				Cesium.Math.toDegrees(cartoCoordinates.height));
 		}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
-
 	outLine();
 	addFloatMarkers();
 	outLine();
 	drawPoint();
 	jumpCh();
 
+
+}
+
+function jump3D() {
+	var modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
+	    Cesium.Cartesian3.fromDegrees(116.37474929425434, 39.91338526254541,
+		-10));
+	var model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
+	    url : 'img/Bee.glb',
+	    modelMatrix : modelMatrix,
+	    scale : 200.0
+	}));
+	
+	
+	viewer.camera.flyTo({
+		destination: Cesium.Cartesian3.fromDegrees(116.37474929425434, 39.91338526254541,
+		-10),
+		orientation: {
+			heading: Cesium.Math.toRadians(348.4202942851978),
+			pitch: Cesium.Math.toRadians(-89.74026687972041),
+			roll: Cesium.Math.toRadians(8.5),
+		},
+		complete: function callback() {
+			// 定位完成之后的回调函数
+		},
+	})
 }
 //自转
 function rotation() {
