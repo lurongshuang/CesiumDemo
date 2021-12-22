@@ -6,7 +6,6 @@ var subdomains = ['0', '1', '2', '3', '4', '5', '6', '7']
 
 var imgMap = new Cesium.UrlTemplateImageryProvider({
 	url: tdtUrl + 'DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' + token,
-	// url:"http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
 	subdomains: subdomains,
 	tilingScheme: new Cesium.WebMercatorTilingScheme(),
 	maximumLevel: 18,
@@ -177,16 +176,39 @@ function jumpZz3D() {
 function jumpTj3D() {
 	//移除自转
 	viewer.clock.onTick.removeEventListener(onTickCallback);
-	var tileset = new Cesium.Cesium3DTileset({
-		url: "https://291wk99274.imdo.co/model/tlxSJfi2n/tileset.json",
-	});
-	viewer.scene.primitives.add(tileset);
-	tileset.readyPromise.then(function(tileset) {
-		viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
-			.radius, 0.0)));
-	}).otherwise(function(error) {
-		throw (error);
-	});
+	var modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
+		Cesium.Cartesian3.fromDegrees(116.37474929425434, 39.91338526254541,
+			-10));
+	var model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
+		url: 'https://a.amap.com/jsapi_demos/static/gltf-online/shanghai/scene.gltf',
+		modelMatrix: modelMatrix,
+		scale: 200.0
+	}));
+	
+	viewer.camera.flyTo({
+		destination: Cesium.Cartesian3.fromDegrees(116.37509411981267,39.90848176328027,
+			800),
+		orientation: {
+			heading: Cesium.Math.toRadians(348.4202942851978),
+			pitch: Cesium.Math.toRadians(-50.74026687972041),
+			roll: Cesium.Math.toRadians(10),
+		},
+		complete: function callback() {
+			// 定位完成之后的回调函数
+		},
+	})
+	
+	
+	// var tileset = new Cesium.Cesium3DTileset({
+	// 	url: "https://291wk99274.imdo.co/model/tlxSJfi2n/tileset.json",
+	// });
+	// viewer.scene.primitives.add(tileset);
+	// tileset.readyPromise.then(function(tileset) {
+	// 	viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
+	// 		.radius, 0.0)));
+	// }).otherwise(function(error) {
+	// 	throw (error);
+	// });
 }
 
 function jumpAm3D() {
