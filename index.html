@@ -19,43 +19,83 @@
 		<div id="app">
 			<dv-border-box-11 title="视图">
 				<div style="display: flex; flex-direction: row; width: 100%; padding:5% 20px;  height: 90%;">
-					<div>
-						<dv-border-box-3 style="width: 300px; margin: 0px 10px; height: 33.3%;">
-							<dv-decoration-9 style="width:150px;height:150px;">66%</dv-decoration-9>
-						</dv-border-box-3>
-						<dv-border-box-9 style="width: 300px; margin: 10px 10px; height: 33.3%;">
-							<dv-water-level-pond :config="config" style="width:200px;height:200px" />
-						</dv-border-box-9>
-						<dv-border-box-8 style="width: 300px; margin: 10px 10px; height: 33.3%; padding: 10px;">
+					<div v-show="isFull">
+						<dv-border-box-8 style="width: 280px; margin: 10px 10px; height: 33.3%; padding: 0px 10px;">
 							<dv-scroll-board :config="listConfig" style="width:500px;height:220px" />
 						</dv-border-box-8>
+						<dv-border-box-3 style="width: 300px; margin: 10px 10px;  height: 33.3%;">
+							<dv-decoration-9 style="width:200px;height:200px;">66%</dv-decoration-9>
+						</dv-border-box-3>
+						<dv-border-box-9 style="width: 300px; height: 33.3%;">
+							<dv-water-level-pond :config="config" style="width:200px;height:200px" />
+						</dv-border-box-9>
 					</div>
 					<div style="flex: 1; height: 100%; margin-top: 20px;" id="cesiumContainer"></div>
-					<!-- <div id="trackPopUp" style="display:none;">
-						<div id="trackPopUpContent" class="leaflet-popup" style="top:5px;left:0;">
-							<a class="leaflet-popup-close-button" href="#">×</a>
-							<div class="leaflet-popup-content-wrapper">
-								<div id="trackPopUpLink" class="leaflet-popup-content" style="max-width:100%;">
-									<div style="padding-bottom: 5px; font-size: 20px; color: #8aaafb;">hls 监控</div>
-									<video class="viewVideo" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
-										autoplay="true"></video>
+					<div v-show="isFull">
+						<dv-border-box-13 style="width: 300px; margin: 0px 10px; height: 40%;">
+							<div>
+								<div>
+									<div>
+										<dv-border-box-10 onclick="jumpCh()"
+											style="width: 240px; height: 30px; margin: 10px 0px;">
+											<span style="font-size: 15px!important; cursor: pointer;"> 定位到中国 </span>
+										</dv-border-box-10>
+									</div>
+
+									<div>
+										<dv-border-box-10 onclick="jumpbj()"
+											style="width: 240px; height: 30px; margin: 10px 0px;">
+											<span style="font-size: 15px!important; cursor: pointer;"> 定位到项目地图 </span>
+										</dv-border-box-10>
+									</div>
+									<div>
+										<dv-border-box-10 onclick="jumpDem()"
+											style="width: 240px; height: 30px; margin: 10px 0px;">
+											<span style="font-size: 15px!important; cursor: pointer;"> 定位到高程数据 </span>
+										</dv-border-box-10>
+
+									</div>
+
+									<div>
+										<dv-border-box-10 onclick="jumpAm3D()"
+											style="width: 240px; height: 30px; margin: 10px 0px;">
+											<span style="font-size: 15px!important; cursor: pointer;"> 定位到澳门3D模型 </span>
+										</dv-border-box-10>
+									</div>
+									<div>
+										<dv-border-box-10 onclick="jumpZz3D()"
+											style="width: 240px; height: 30px; margin: 10px 0px;">
+											<span style="font-size: 15px!important; cursor: pointer;"> 定位到郑州3D模型 </span>
+										</dv-border-box-10>
+									</div>
+
+									<div>
+										<dv-border-box-10 onclick="jumpTj3D()"
+											style="width: 240px; height: 30px; margin: 10px 0px;">
+											<span style="font-size: 15px!important; cursor: pointer;"> 定位到天津3D模型 </span>
+										</dv-border-box-10>
+									</div>
+
 								</div>
 							</div>
-							<div class="leaflet-popup-tip-container">
-								<div class="leaflet-popup-tip"></div>
-							</div>
-						</div>
-					</div> -->
-
-
-					<div>
-						<dv-border-box-5 style="width: 300px; margin: 0px 10px; height: 50%;">
-							<dv-decoration-12 style="width:150px;height:150px;" />
-						</dv-border-box-5>
-						<dv-decoration-4 :reverse="true" style="height:5px;  margin:10px;"></dv-decoration-4>
-						<dv-border-box-5 style="width: 300px; margin: 0px 10px; height: 50%; padding: 10px;"
+						</dv-border-box-13>
+						<dv-decoration-4 :reverse="true" style="height:5px;  margin:0px 10px;  margin-top: 10px;">
+						</dv-decoration-4>	
+						<dv-border-box-5
+							style="margin: 0px 10px; height: 58%; padding: 10px;  margin-top: 10px; width: 300px;"
 							:reverse="true">
-							<dv-capsule-chart :config="capConfig" style="width:100%;height:200px" />
+							<div>
+								<div style="text-align: center;">
+									<dv-decoration-12 style="width:150px;height:150px; margin-left: 70px;" />
+								</div>
+								<div>
+									<dv-decoration-3
+										style="width:280px;height:30px; margin-left: 10px;  margin-top: 20px;" />
+								</div>
+								<div style="width: 280px; margin-top: 20px; margin-left: 10px;">
+									<dv-capsule-chart :config="capConfig" style="width:100%;height:200px" />
+								</div>
+							</div>
 						</dv-border-box-5>
 					</div>
 				</div>
@@ -63,21 +103,35 @@
 
 		</div>
 		<div style="position: absolute; right: 20px; top: 60px; color: #FFFFFF;">
-			<div><button onclick="jumpbj()">定位到项目地图</button></div>
-			<div><button onclick="jumpDem()">定位到gdem数据</button></div>
-			<div><button onclick="jumpCh()">定位到中国</button></div>
+
 			<!-- <div><button onclick="jump3D()">定位到jump3D</button></div> -->
-			
-			
+
+
 		</div>
 
 	</body>
+	<!-- <div id="trackPopUp" style="display:none;">
+		<div id="trackPopUpContent" class="leaflet-popup" style="top:5px;left:0;">
+			<a class="leaflet-popup-close-button" href="#">×</a>
+			<div class="leaflet-popup-content-wrapper">
+				<div id="trackPopUpLink" class="leaflet-popup-content" style="max-width:100%;">
+					<div style="padding-bottom: 5px; font-size: 20px; color: #8aaafb;">hls 监控</div>
+					<video class="viewVideo" src="http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+						autoplay="true"></video>
+				</div>
+			</div>
+			<div class="leaflet-popup-tip-container">
+				<div class="leaflet-popup-tip"></div>
+			</div>
+		</div>
+	</div> -->
 	<script src="js/index.js"></script>
 	<script type="module">
 		var app = new Vue({
 			el: '#app',
 			data() {
 				return {
+					isFull: true,
 					config: {
 						data: [66, 45],
 						shape: 'roundRect'

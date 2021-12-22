@@ -6,6 +6,7 @@ var subdomains = ['0', '1', '2', '3', '4', '5', '6', '7']
 
 var imgMap = new Cesium.UrlTemplateImageryProvider({
 	url: tdtUrl + 'DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' + token,
+	// url:"http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
 	subdomains: subdomains,
 	tilingScheme: new Cesium.WebMercatorTilingScheme(),
 	maximumLevel: 18,
@@ -142,30 +143,87 @@ function init() {
 
 
 }
+var tileset = new Cesium.Cesium3DTileset({
+		url: "https://291wk99274.imdo.co/model/tpZlTYHrl/tileset.json",
+	});
+	
+function jumpZz3D() {
+	//移除自转
+	viewer.clock.onTick.removeEventListener(onTickCallback);
+	viewer.scene.primitives.add(tileset);
+	tileset.readyPromise.then(function(tileset) {
+		// viewer.camera.flyTo({
+		// 	destination: Cesium.Cartesian3.fromDegrees(113.61783953714115,34.74771262209953,
+		// 		1000),
+		// 	orientation: {
+		// 		heading: Cesium.Math.toRadians(348.4202942851978),
+		// 		pitch: Cesium.Math.toRadians(-89.74026687972041),
+		// 		roll: Cesium.Math.toRadians(0),
+		// 	},
+		// 	complete: function callback() {
+		// 		// 定位完成之后的回调函数
+		// 	},
+		// })
+		viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
+			.radius, 0.0)));
+	}).otherwise(function(error) {
+		throw (error);
+	});
+}
 
-function jump3D() {
-	var modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
-	    Cesium.Cartesian3.fromDegrees(116.37474929425434, 39.91338526254541,
-		-10));
-	var model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
-	    url : 'img/Bee.glb',
-	    modelMatrix : modelMatrix,
-	    scale : 200.0
-	}));
-	
-	
-	viewer.camera.flyTo({
-		destination: Cesium.Cartesian3.fromDegrees(116.37474929425434, 39.91338526254541,
-		-10),
-		orientation: {
-			heading: Cesium.Math.toRadians(348.4202942851978),
-			pitch: Cesium.Math.toRadians(-89.74026687972041),
-			roll: Cesium.Math.toRadians(8.5),
-		},
-		complete: function callback() {
-			// 定位完成之后的回调函数
-		},
-	})
+function jumpTj3D() {
+	//移除自转
+	viewer.clock.onTick.removeEventListener(onTickCallback);
+	var tileset = new Cesium.Cesium3DTileset({
+		url: "https://291wk99274.imdo.co/model/tlxSJfi2n/tileset.json",
+	});
+	viewer.scene.primitives.add(tileset);
+	tileset.readyPromise.then(function(tileset) {
+		viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
+			.radius, 0.0)));
+	}).otherwise(function(error) {
+		throw (error);
+	});
+}
+
+function jumpAm3D() {
+	//移除自转
+	viewer.clock.onTick.removeEventListener(onTickCallback);
+
+	// var modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
+	// 	Cesium.Cartesian3.fromDegrees(116.37474929425434, 39.91338526254541,
+	// 		-10));
+	// var model = viewer.scene.primitives.add(Cesium.Model.fromGltf({
+	// 	// url: 'img/BoxUnlit.gltf',
+	// 	url: 'img/skp.skp',
+	// 	modelMatrix: modelMatrix,
+	// 	scale: 200.0
+	// }));
+
+
+	// viewer.camera.flyTo({
+	// 	destination: Cesium.Cartesian3.fromDegrees(116.37509411981267,39.90848176328027,
+	// 		800),
+	// 	orientation: {
+	// 		heading: Cesium.Math.toRadians(348.4202942851978),
+	// 		pitch: Cesium.Math.toRadians(-50.74026687972041),
+	// 		roll: Cesium.Math.toRadians(10),
+	// 	},
+	// 	complete: function callback() {
+	// 		// 定位完成之后的回调函数
+	// 	},
+	// })
+
+	var tileset = new Cesium.Cesium3DTileset({
+		url: "https://291wk99274.imdo.co/model/tOMlY72TM/tileset.json",
+	});
+	viewer.scene.primitives.add(tileset);
+	tileset.readyPromise.then(function(tileset) {
+		viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
+			.radius, 0.0)));
+	}).otherwise(function(error) {
+		throw (error);
+	});
 }
 //自转
 function rotation() {
@@ -202,7 +260,7 @@ function jumpbj() {
 	//移除自转
 	viewer.clock.onTick.removeEventListener(onTickCallback);
 	viewer.camera.flyTo({
-		destination: Cesium.Cartesian3.fromDegrees(116.392726, 39.917500, 1800),
+		destination: Cesium.Cartesian3.fromDegrees(116.392726, 39.917500, 1500),
 		orientation: {
 			heading: Cesium.Math.toRadians(348.4202942851978),
 			pitch: Cesium.Math.toRadians(-89.74026687972041),
@@ -233,6 +291,8 @@ function jumpDem() {
 
 //将三维球定位到中国
 function jumpCh() {
+	//移除自转
+	viewer.clock.onTick.removeEventListener(onTickCallback);
 	viewer.camera.flyTo({
 		destination: Cesium.Cartesian3.fromDegrees(103.84, 31.15, 11850000),
 		orientation: {
