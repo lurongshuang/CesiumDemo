@@ -11,11 +11,12 @@ var imgMap = new Cesium.UrlTemplateImageryProvider({
 	maximumLevel: 18,
 })
 
-//北京部分地形  "http://localhost:9003/terrain/UBd2N8cd"
-//辽宁部分地形 http://localhost:9003/terrain/vEfTzfee
-//山西省地形 http://localhost:9003/terrain/vEfTzfee
+//北京部分地形  "https://291wk99274.imdo.co/terrain/UBd2N8cd"
+//辽宁部分地形 https://291wk99274.imdo.co/terrain/vEfTzfee
+//山西省地形 https://291wk99274.imdo.co/terrain/jz9a7fEd
+//
 var terrainProvider = new Cesium.CesiumTerrainProvider({
-	url: "http://localhost:9003/terrain/jz9a7fEd",
+	url: "https://291wk99274.imdo.co/terrain/UBd2N8cd",
 });
 
 var viewer;
