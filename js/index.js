@@ -24,6 +24,9 @@ var viewer;
 
 $(function() {
 	init();
+	setTimeout(function(){
+		$(".cesium-widget-credits").hide();
+	},5000);
 })
 
 var onTickCallback;
