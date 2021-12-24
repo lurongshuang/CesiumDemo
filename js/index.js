@@ -16,7 +16,7 @@ var imgMap = new Cesium.UrlTemplateImageryProvider({
 //山西省地形 https://291wk99274.imdo.co/terrain/jz9a7fEd
 //
 var terrainProvider = new Cesium.CesiumTerrainProvider({
-	url: "https://291wk99274.imdo.co/terrain/UBd2N8cd",
+	url: "http://localhost:9003/terrain/UBd2N8cd",
 });
 
 var viewer;
@@ -33,7 +33,7 @@ var onTickCallback;
 // cesium 初始化
 function init() {
 	viewer = new Cesium.Viewer("cesiumContainer", {
-		// imageryProvider: imgMap,
+		imageryProvider: imgMap,
 		terrainProvider: terrainProvider,
 		contextOptions: {
 			webgl: {
@@ -146,7 +146,7 @@ function init() {
 
 }
 var tileset = new Cesium.Cesium3DTileset({
-		url: "https://291wk99274.imdo.co/model/tpZlTYHrl/tileset.json",
+		url: "http://localhost:9003/model/tpZlTYHrl/tileset.json",
 	});
 	
 function jumpZz3D() {
@@ -240,7 +240,7 @@ function jumpAm3D() {
 	// })
 
 	var tileset = new Cesium.Cesium3DTileset({
-		url: "https://291wk99274.imdo.co/model/tOMlY72TM/tileset.json",
+		url: "http://localhost:9003/model/tOMlY72TM/tileset.json",
 	});
 	viewer.scene.primitives.add(tileset);
 	tileset.readyPromise.then(function(tileset) {
