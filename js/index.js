@@ -6,10 +6,13 @@ var subdomains = ['0', '1', '2', '3', '4', '5', '6', '7']
 
 var imgMap = new Cesium.UrlTemplateImageryProvider({
 	url: tdtUrl + 'DataServer?T=img_w&x={x}&y={y}&l={z}&tk=' + token,
+	// url: "https://maponline1.bdimg.com/starpic/?qt=satepc&u=x={x};y={y};z={z};v=009;type=sate&fm=46&app=webearth2&v=009&udt=20200604",
 	subdomains: subdomains,
 	tilingScheme: new Cesium.WebMercatorTilingScheme(),
 	maximumLevel: 18,
 })
+
+
 
 //北京部分地形  "https://291wk99274.imdo.co/terrain/UBd2N8cd"
 //辽宁部分地形 https://291wk99274.imdo.co/terrain/vEfTzfee
@@ -23,9 +26,9 @@ var viewer;
 
 $(function() {
 	init();
-	setTimeout(function(){
+	setTimeout(function() {
 		$(".cesium-widget-credits").hide();
-	},5000);
+	}, 5000);
 })
 
 var onTickCallback;
@@ -52,8 +55,9 @@ function init() {
 		creditsDisplay: false, //展示商标版权和数据源。
 		timeline: false, //展示当前时间和允许用户在进度条上拖动到任何一个指定的时间。
 		fullscreenButton: true, //视察全屏按钮
-		shadows: true,
+		shadows: false,
 		shouldAnimate: false,
+		scene3DOnly: true, //如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
 		clock: new Cesium.Clock({
 			currentTime: Cesium.JulianDate.fromDate(new Date())
 		})
@@ -137,18 +141,68 @@ function init() {
 				Cesium.Math.toDegrees(cartoCoordinates.height));
 		}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
+
+	tdtLayer = new Cesium.ArcGisMapServerImageryProvider({
+		url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
+	})
+	viewer.imageryLayers.addImageryProvider(tdtLayer);
+
 	outLine();
 	addFloatMarkers();
 	outLine();
 	drawPoint();
 	jumpCh();
-
-
 }
-var tileset = new Cesium.Cesium3DTileset({
-		url: "http://localhost:9003/model/tpZlTYHrl/tileset.json",
+
+
+function jumpBx3D(url, number,title) {
+	//移除自转
+	viewer.clock.onTick.removeEventListener(onTickCallback);
+	$($(".dv-border-box-11-title")[0]).text(title)
+	var tileset = new Cesium.Cesium3DTileset({
+		url: url,
+		baseScreenSpaceError: 1024,
+		skipScreenSpaceErrorFactor: 16,
+		skipLevels: 1,
+		immediatelyLoadDesiredLevelOfDetail: false,
+		loadSiblings: false,
+		cullWithChildrenBounds: true,
+		dynamicScreenSpaceError: true,
+		dynamicScreenSpaceErrorDensity: 0.00278,
+		dynamicScreenSpaceErrorFactor: 4.0,
+		dynamicScreenSpaceErrorHeightFalloff: 0.25
+
 	});
-	
+	viewer.scene.primitives.add(tileset);
+	tileset.readyPromise.then(function(tileset) {
+		//贴地高度
+		changeHeight(tileset, number);
+		//跳转
+		viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
+			.radius, 0.0)));
+	}).otherwise(function(error) {
+		throw (error);
+	});
+}
+
+function changeHeight(tileset, height) {
+	height = Number(height);
+	if (isNaN(height)) {
+		return;
+	}
+	var cartographic = Cesium.Cartographic.fromCartesian(tileset.boundingSphere.center);
+	var surface = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, cartographic.height);
+	var offset = Cesium.Cartesian3.fromRadians(cartographic.longitude, cartographic.latitude, height);
+	var translation = Cesium.Cartesian3.subtract(offset, surface, new Cesium.Cartesian3());
+	tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
+}
+
+
+var tileset = new Cesium.Cesium3DTileset({
+	url: "http://localhost:9003/model/tpZlTYHrl/tileset.json",
+
+});
+
 function jumpZz3D() {
 	//移除自转
 	viewer.clock.onTick.removeEventListener(onTickCallback);
@@ -184,9 +238,9 @@ function jumpTj3D() {
 		modelMatrix: modelMatrix,
 		scale: 200.0
 	}));
-	
+
 	viewer.camera.flyTo({
-		destination: Cesium.Cartesian3.fromDegrees(116.37509411981267,39.90848176328027,
+		destination: Cesium.Cartesian3.fromDegrees(116.37509411981267, 39.90848176328027,
 			800),
 		orientation: {
 			heading: Cesium.Math.toRadians(348.4202942851978),
@@ -197,8 +251,8 @@ function jumpTj3D() {
 			// 定位完成之后的回调函数
 		},
 	})
-	
-	
+
+
 	// var tileset = new Cesium.Cesium3DTileset({
 	// 	url: "https://291wk99274.imdo.co/model/tlxSJfi2n/tileset.json",
 	// });
