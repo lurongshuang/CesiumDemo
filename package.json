@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "cesium-navigation-es6": "^3.0.4"
+  }
+}

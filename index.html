@@ -8,9 +8,9 @@
 		<meta name="viewport"
 			content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
 		<title>CesiumDemo</title>
+		<script src="./js/jquery-3.5.1.min.js"></script>
 		<script src="js/Cesium/Cesium.js"></script>
 		<script src="https://api.tianditu.gov.cn/cdn/plugins/cesium/cesiumTdt.js"></script>
-		<script src="./js/jquery-3.5.1.min.js"></script>
 		<script src="https://unpkg.com/vue/dist/vue.js"></script>
 		<script src="https://unpkg.com/@jiaminghi/data-view/dist/datav.map.vue.js"></script>
 	</head>
@@ -34,20 +34,20 @@
 						<dv-border-box-13 style="width: 300px; margin: 0px 10px; height: 50%;">
 							<div>
 								<div>
-								<!-- 	<div>
+									<div>
 										<dv-border-box-10 onclick="jumpCh()"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
-											<span style="font-size: 15px!important; cursor: pointer;"> 定位到中国 </span>
+											<span style="font-size: 15px!important; cursor: pointer;"> 自动旋转 </span>
 										</dv-border-box-10>
 									</div>
- -->
-								<!-- 	<div>
+
+									<!-- 	<div>
 										<dv-border-box-10 onclick="jumpbj()"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到项目地图 </span>
 										</dv-border-box-10>
 									</div> -->
-								<!-- 	<div>
+									<!-- 	<div>
 										<dv-border-box-10 onclick="jumpDem()"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到高程数据 </span>
@@ -73,48 +73,44 @@
 										</dv-border-box-10>
 									</div> -->
 									<div>
-										<dv-border-box-10
-											onclick="jumpBx3D('http://localhost:9003/model/benxi13dgc45/tileset.json',100.0,'本溪测区1')"
+										<dv-border-box-10 onclick="jumpBx3D(0,100.0,'本溪测区1')"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到本溪测区1</span>
 										</dv-border-box-10>
 									</div>
 									<div>
-										<dv-border-box-10
-											onclick="jumpBx3D('http://localhost:9003/model/t26AXXcbn/tileset.json',200.0,'本溪测区2')"
+										<dv-border-box-10 onclick="jumpBx3D(1,200.0,'本溪测区2')"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到本溪测区2</span>
 										</dv-border-box-10>
 									</div>
 									<div>
-										<dv-border-box-10
-											onclick="jumpBx3D('http://localhost:9003/model/benxi3fdafdfaf/tileset.json',100.0,'本溪测区3')"
+										<dv-border-box-10 onclick="jumpBx3D(2,100.0,'本溪测区3')"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到本溪测区3</span>
 										</dv-border-box-10>
 									</div>
 									<div>
-										<dv-border-box-10
-											onclick="jumpBx3D('http://localhost:9003/model/benxi4sadfa/tileset.json',100.0,'本溪测区4')"
+										<dv-border-box-10 onclick="jumpBx3D(3,100.0,'本溪测区4')"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到本溪测区4</span>
 										</dv-border-box-10>
 									</div>
 
-									<div>
+									<!-- 									<div>
 										<dv-border-box-10
-											onclick="jumpBx3D('http://localhost:9003/model/tsCtgz13O/tileset.json',100.0,'模型1')"
+											onclick="jumpBx3D(5,100.0,'模型1')"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到模型1</span>
 										</dv-border-box-10>
 									</div>
 									<div>
 										<dv-border-box-10
-											onclick="jumpBx3D('http://localhost:9003/model/tcY2RZdc9/tileset.json',100.0,'模型2')"
+											onclick="jumpBx3D('',100.0,'模型2')"
 											style="width: 240px; height: 30px; margin: 10px 0px;">
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到模型2</span>
 										</dv-border-box-10>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</dv-border-box-13>
@@ -164,6 +160,7 @@
 			</div>
 		</div>
 	</div> -->
+	<script src="js/data.js"></script>
 	<script src="js/index.js"></script>
 	<script type="module">
 		var app = new Vue({
@@ -328,5 +325,18 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+
+	.compass {
+		position: absolute;
+		left: 0;
+		top: 10px;
+	}
+
+	.navigation-controls {
+		position: absolute;
+		left: 30px;
+		top: 120px;
+		height: 90px;
 	}
 </style>
