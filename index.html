@@ -9,10 +9,10 @@
 			content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
 		<title>CesiumDemo</title>
 		<script src="./js/jquery-3.5.1.min.js"></script>
-		<script src="js/Cesium/Cesium.js"></script>
-		<script src="https://api.tianditu.gov.cn/cdn/plugins/cesium/cesiumTdt.js"></script>
-		<script src="https://unpkg.com/vue/dist/vue.js"></script>
-		<script src="https://unpkg.com/@jiaminghi/data-view/dist/datav.map.vue.js"></script>
+		<script src="./js/Cesium/Cesium.js"></script>
+		<script src="./js/cesiumTdt.js"></script>
+		<script src="./js/vue.js"></script>
+		<script src="./js/datav.map.vue.js"></script>
 	</head>
 	<body>
 		<div id="app">
@@ -111,6 +111,20 @@
 											<span style="font-size: 15px!important; cursor: pointer;"> 定位到模型2</span>
 										</dv-border-box-10>
 									</div> -->
+
+									<div>
+										<dv-border-box-10 onclick="jumpbj()"
+											style="width: 240px; height: 30px; margin: 10px 0px;">
+											<span style="font-size: 15px!important; cursor: pointer;"> 定位到测试项目 </span>
+										</dv-border-box-10>
+									</div>
+
+									<div>
+										<dv-border-box-10 onclick="jumpAm3D()"
+											style="width: 240px; height: 30px; margin: 10px 0px;">
+											<span style="font-size: 15px!important; cursor: pointer;"> 定位到澳门3D模组</span>
+										</dv-border-box-10>
+									</div>
 								</div>
 							</div>
 						</dv-border-box-13>

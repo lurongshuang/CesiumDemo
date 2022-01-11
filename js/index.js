@@ -19,7 +19,7 @@ var imgMap = new Cesium.UrlTemplateImageryProvider({
 //山西省地形 https://291wk99274.imdo.co/terrain/jz9a7fEd
 //
 var terrainProvider = new Cesium.CesiumTerrainProvider({
-	url: "http://localhost:9003/terrain/UBd2N8cd",
+	url: "https://291wk99274.imdo.co/terrain/UBd2N8cd",
 });
 
 var viewer;
@@ -142,10 +142,10 @@ function init() {
 		}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
 
-	tdtLayer = new Cesium.ArcGisMapServerImageryProvider({
-		url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
-	})
-	viewer.imageryLayers.addImageryProvider(tdtLayer);
+	// tdtLayer = new Cesium.ArcGisMapServerImageryProvider({
+	// 	url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer'
+	// })
+	// viewer.imageryLayers.addImageryProvider(tdtLayer);
 
 	outLine();
 	addFloatMarkers();
@@ -206,7 +206,7 @@ function changeHeight(tileset, height) {
 
 
 var tileset = new Cesium.Cesium3DTileset({
-	url: "http://localhost:9003/model/tpZlTYHrl/tileset.json",
+	url: "https://291wk99274.imdo.co/model/tpZlTYHrl/tileset.json",
 
 });
 
@@ -301,7 +301,8 @@ function jumpAm3D() {
 	// })
 
 	var tileset = new Cesium.Cesium3DTileset({
-		url: "http://localhost:9003/model/tOMlY72TM/tileset.json",
+		// url: "https://291wk99274.imdo.co/model/tOMlY72TM/tileset.json",
+		url: "http://210.14.146.43:88/aomen/tileset.json",
 	});
 	viewer.scene.primitives.add(tileset);
 	tileset.readyPromise.then(function(tileset) {
