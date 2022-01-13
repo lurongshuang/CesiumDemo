@@ -1,6 +1,5 @@
 var tileset1 = new Cesium.Cesium3DTileset({
-	// url: "http://localhost:9003/model/benxi13dgc45/tileset.json",
-	url: "https://291wk99274.imdo.co/model/benxi13dgc45/tileset.json",
+	url: "http://210.14.146.43:88/benxi1/tileset.json",
 	baseScreenSpaceError: 1024,
 	skipScreenSpaceErrorFactor: 16,
 	skipLevels: 1,
@@ -14,8 +13,7 @@ var tileset1 = new Cesium.Cesium3DTileset({
 });
 
 var tileset2 = new Cesium.Cesium3DTileset({
-	// url: "http://localhost:9003/model/t26AXXcbn/tileset.json",
-	url: "https://291wk99274.imdo.co/model/t26AXXcbn/tileset.json",
+	url: "http://210.14.146.43:88/benxi2/tileset.json",
 	baseScreenSpaceError: 1024,
 	skipScreenSpaceErrorFactor: 16,
 	skipLevels: 1,
@@ -30,8 +28,7 @@ var tileset2 = new Cesium.Cesium3DTileset({
 });
 
 var tileset3 = new Cesium.Cesium3DTileset({
-	// url: "http://localhost:9003/model/benxi3fdafdfaf/tileset.json",
-	url: "https://291wk99274.imdo.co/model/benxi3fdafdfaf/tileset.json",
+	url: "http://210.14.146.43:88/benxi3/tileset.json",
 	baseScreenSpaceError: 1024,
 	skipScreenSpaceErrorFactor: 16,
 	skipLevels: 1,
@@ -46,8 +43,7 @@ var tileset3 = new Cesium.Cesium3DTileset({
 });
 
 var tileset4 = new Cesium.Cesium3DTileset({
-	// url: "http://localhost:9003/model/benxi4sadfa/tileset.json",
-	url: "https://291wk99274.imdo.co/model/benxi4sadfa/tileset.json",
+	url: "http://210.14.146.43:88/benxi4/tileset.json",
 	baseScreenSpaceError: 1024,
 	skipScreenSpaceErrorFactor: 16,
 	skipLevels: 1,
@@ -61,35 +57,35 @@ var tileset4 = new Cesium.Cesium3DTileset({
 
 });
 
-var tileset5 = new Cesium.Cesium3DTileset({
-	// url: "http://localhost:9003/model/tsCtgz13O/tileset.json",
-	url: "https://291wk99274.imdo.co/model/tsCtgz13O/tileset.json",
-	baseScreenSpaceError: 1024,
-	skipScreenSpaceErrorFactor: 16,
-	skipLevels: 1,
-	immediatelyLoadDesiredLevelOfDetail: false,
-	loadSiblings: false,
-	cullWithChildrenBounds: true,
-	dynamicScreenSpaceError: true,
-	dynamicScreenSpaceErrorDensity: 0.00278,
-	dynamicScreenSpaceErrorFactor: 4.0,
-	dynamicScreenSpaceErrorHeightFalloff: 0.25
+// var tileset5 = new Cesium.Cesium3DTileset({
+// 	// url: "http://localhost:9003/model/tsCtgz13O/tileset.json",
+// 	url: "https://291wk99274.imdo.co/model/tsCtgz13O/tileset.json",
+// 	baseScreenSpaceError: 1024,
+// 	skipScreenSpaceErrorFactor: 16,
+// 	skipLevels: 1,
+// 	immediatelyLoadDesiredLevelOfDetail: false,
+// 	loadSiblings: false,
+// 	cullWithChildrenBounds: true,
+// 	dynamicScreenSpaceError: true,
+// 	dynamicScreenSpaceErrorDensity: 0.00278,
+// 	dynamicScreenSpaceErrorFactor: 4.0,
+// 	dynamicScreenSpaceErrorHeightFalloff: 0.25
 
-});
+// });
 
-var tileset6 = new Cesium.Cesium3DTileset({
-	// url: "http://localhost:9003/model/tcY2RZdc9/tileset.json",
-	url: "https://291wk99274.imdo.co/model/tcY2RZdc9/tileset.json",
-	baseScreenSpaceError: 1024,
-	skipScreenSpaceErrorFactor: 16,
-	skipLevels: 1,
-	immediatelyLoadDesiredLevelOfDetail: false,
-	loadSiblings: false,
-	cullWithChildrenBounds: true,
-	dynamicScreenSpaceError: true,
-	dynamicScreenSpaceErrorDensity: 0.00278,
-	dynamicScreenSpaceErrorFactor: 4.0,
-	dynamicScreenSpaceErrorHeightFalloff: 0.25
+// var tileset6 = new Cesium.Cesium3DTileset({
+// 	// url: "http://localhost:9003/model/tcY2RZdc9/tileset.json",
+// 	url: "https://291wk99274.imdo.co/model/tcY2RZdc9/tileset.json",
+// 	baseScreenSpaceError: 1024,
+// 	skipScreenSpaceErrorFactor: 16,
+// 	skipLevels: 1,
+// 	immediatelyLoadDesiredLevelOfDetail: false,
+// 	loadSiblings: false,
+// 	cullWithChildrenBounds: true,
+// 	dynamicScreenSpaceError: true,
+// 	dynamicScreenSpaceErrorDensity: 0.00278,
+// 	dynamicScreenSpaceErrorFactor: 4.0,
+// 	dynamicScreenSpaceErrorHeightFalloff: 0.25
 
-});
-var tilesetArry = [tileset1,tileset2,tileset3,tileset4,tileset5,tileset6];
+// });
+var tilesetArry = [tileset1,tileset2,tileset3,tileset4];

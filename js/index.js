@@ -180,16 +180,21 @@ function jumpBx3D(index, number, title) {
 	var tileset = tilesetArry[index];
 	if (!viewer.scene.primitives.contains(tileset)) {
 		viewer.scene.primitives.add(tileset);
-	}
-	tileset.readyPromise.then(function(tileset) {
-		//贴地高度
-		changeHeight(tileset, number);
+		tileset.readyPromise.then(function(tileset) {
+			//贴地高度
+			changeHeight(tileset, number);
+			//跳转
+			viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
+				.radius, 0.0)));
+		}).otherwise(function(error) {
+			throw (error);
+		});
+	} else {
 		//跳转
 		viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
 			.radius, 0.0)));
-	}).otherwise(function(error) {
-		throw (error);
-	});
+	}
+
 }
 
 function changeHeight(tileset, height) {
@@ -205,34 +210,34 @@ function changeHeight(tileset, height) {
 }
 
 
-var tileset = new Cesium.Cesium3DTileset({
-	url: "https://291wk99274.imdo.co/model/tpZlTYHrl/tileset.json",
+// var tileset = new Cesium.Cesium3DTileset({
+// 	url: "https://291wk99274.imdo.co/model/tpZlTYHrl/tileset.json",
 
-});
+// });
 
-function jumpZz3D() {
-	//移除自转
-	viewer.clock.onTick.removeEventListener(onTickCallback);
-	viewer.scene.primitives.add(tileset);
-	tileset.readyPromise.then(function(tileset) {
-		// viewer.camera.flyTo({
-		// 	destination: Cesium.Cartesian3.fromDegrees(113.61783953714115,34.74771262209953,
-		// 		1000),
-		// 	orientation: {
-		// 		heading: Cesium.Math.toRadians(348.4202942851978),
-		// 		pitch: Cesium.Math.toRadians(-89.74026687972041),
-		// 		roll: Cesium.Math.toRadians(0),
-		// 	},
-		// 	complete: function callback() {
-		// 		// 定位完成之后的回调函数
-		// 	},
-		// })
-		viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
-			.radius, 0.0)));
-	}).otherwise(function(error) {
-		throw (error);
-	});
-}
+// function jumpZz3D() {
+// 	//移除自转
+// 	viewer.clock.onTick.removeEventListener(onTickCallback);
+// 	viewer.scene.primitives.add(tileset);
+// 	tileset.readyPromise.then(function(tileset) {
+// 		// viewer.camera.flyTo({
+// 		// 	destination: Cesium.Cartesian3.fromDegrees(113.61783953714115,34.74771262209953,
+// 		// 		1000),
+// 		// 	orientation: {
+// 		// 		heading: Cesium.Math.toRadians(348.4202942851978),
+// 		// 		pitch: Cesium.Math.toRadians(-89.74026687972041),
+// 		// 		roll: Cesium.Math.toRadians(0),
+// 		// 	},
+// 		// 	complete: function callback() {
+// 		// 		// 定位完成之后的回调函数
+// 		// 	},
+// 		// })
+// 		viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0, -2.0, Math.max(100.0 - tileset.boundingSphere
+// 			.radius, 0.0)));
+// 	}).otherwise(function(error) {
+// 		throw (error);
+// 	});
+// }
 
 function jumpTj3D() {
 	//移除自转
@@ -299,7 +304,7 @@ function jumpAm3D() {
 	// 		// 定位完成之后的回调函数
 	// 	},
 	// })
-
+	$($(".dv-border-box-11-title")[0]).text("澳门模组");
 	var tileset = new Cesium.Cesium3DTileset({
 		// url: "https://291wk99274.imdo.co/model/tOMlY72TM/tileset.json",
 		url: "http://210.14.146.43:88/aomen/tileset.json",
@@ -344,6 +349,7 @@ function stop() {
 
 //定位到天安门
 function jumpbj() {
+	$($(".dv-border-box-11-title")[0]).text("测试项目");
 	//移除自转
 	viewer.clock.onTick.removeEventListener(onTickCallback);
 	viewer.camera.flyTo({
@@ -379,6 +385,7 @@ function jumpDem() {
 //将三维球定位到中国
 function jumpCh() {
 	//移除自转
+	$($(".dv-border-box-11-title")[0]).text("视图");
 	viewer.clock.onTick.removeEventListener(onTickCallback);
 	viewer.camera.flyTo({
 		destination: Cesium.Cartesian3.fromDegrees(103.84, 31.15, 11850000),
