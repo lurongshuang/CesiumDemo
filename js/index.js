@@ -124,7 +124,7 @@ function init() {
 				if (pick.id.name.indexOf("监控画面") != -1) {
 					showPop(pick, movement, pick.id.info);
 				} else
-				
+
 				if (pick.id.name == "甬子峪基站监控") {
 					showPop(pick, movement, pick.id.info);
 				}
@@ -506,13 +506,13 @@ function drawMultiplePoints() {
 }
 
 function addFloatMarkers() {
-	
+
 	let monitors = [{
 		point: [116.39062874186354, 39.92093902539501, 9.691983084673709],
 		name: "宫门1监控画面",
 		url: "http://210.14.146.43:88/hls/101/101.m3u8"
-	},{
-		point: [123.89828638101383, 41.1539220316507, 40],
+	}, {
+		point: [123.89927382640538, 41.15361897586072, 40],
 		name: "甬子峪基站监控",
 		url: "http://210.14.146.43:88/hls/101/101.m3u8"
 	}, {
@@ -624,8 +624,12 @@ function showPop(pick, movement, info) {
 	// content =
 	// 	'<div style="padding-bottom: 5px; font-size: 20px; color: #8aaafb;">' + info.name + '</div>' +
 	// 	'<video class="viewVideo" src="' + info.url + '" autoplay="true"></video>';
-
-	content = '<video id="player-container-id" width="414" height="270" preload="auto" playsinline webkit-playsinline></video>';
+	var x = 10000;
+	var y = 0;
+	var rand = parseInt(Math.random() * (x - y + 1) + y);
+	var id = "player-container-id" + rand;
+	content =
+		'<video id="' + id + '" width="414" height="270" preload="auto" playsinline webkit-playsinline></video>';
 
 	// content是核心,你想弹出的东西,就全部放在这里面
 	var obj = {
@@ -635,21 +639,21 @@ function showPop(pick, movement, info) {
 	};
 	// 构造一个参数,包括事件、 位置、已经弹框
 	infoWindow(pick, movement, obj);
-	var player = TCPlayer('player-container-id', {
-		autoplay: true, 
-		m3u8: info.url,
-		autoplay:true,
-		controls:true,
-		controlBar:{
-			playToggle:false,
-			progressControl:false,
-			currentTimeDisplay:false,
-			durationDisplay:false,
-			timeDivider:false,
-			playbackRateMenuButton:false
-		}
-	}); // player-container-id 为播放器容器 ID，必须与 html 中一致
-	player.src(info.url); 
+	setTimeout(function() {
+		var player = TCPlayer(id, {
+			autoplay: true,
+			controls: true,
+			controlBar: {
+				playToggle: false,
+				progressControl: false,
+				currentTimeDisplay: false,
+				durationDisplay: false,
+				timeDivider: false,
+				playbackRateMenuButton: false
+			}
+		});
+		player.src(info.url);
+	}, 500);
 }
 
 function infoWindow(pick, movement, obj) {
