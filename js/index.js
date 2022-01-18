@@ -18,9 +18,9 @@ var imgMap = new Cesium.UrlTemplateImageryProvider({
 //辽宁部分地形 https://291wk99274.imdo.co/terrain/vEfTzfee
 //山西省地形 https://291wk99274.imdo.co/terrain/jz9a7fEd
 //
-var terrainProvider = new Cesium.CesiumTerrainProvider({
-	url: "https://291wk99274.imdo.co/terrain/UBd2N8cd",
-});
+// var terrainProvider = new Cesium.CesiumTerrainProvider({
+// 	url: "https://291wk99274.imdo.co/terrain/UBd2N8cd",
+// });
 
 var viewer;
 
@@ -37,7 +37,7 @@ var onTickCallback;
 function init() {
 	viewer = new Cesium.Viewer("cesiumContainer", {
 		imageryProvider: imgMap,
-		terrainProvider: terrainProvider,
+		// terrainProvider: terrainProvider,
 		contextOptions: {
 			webgl: {
 				alpha: true
@@ -124,8 +124,9 @@ function init() {
 				if (pick.id.name.indexOf("监控画面") != -1) {
 					showPop(pick, movement, pick.id.info);
 				} else
-				if (pick.id.name == "城北摄像头") {
-
+				
+				if (pick.id.name == "甬子峪基站监控") {
+					showPop(pick, movement, pick.id.info);
 				}
 			} else {
 				$("#trackPopUp").hide();
@@ -505,22 +506,27 @@ function drawMultiplePoints() {
 }
 
 function addFloatMarkers() {
+	
 	let monitors = [{
 		point: [116.39062874186354, 39.92093902539501, 9.691983084673709],
 		name: "宫门1监控画面",
-		url: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+		url: "http://210.14.146.43:88/hls/101/101.m3u8"
+	},{
+		point: [123.89828638101383, 41.1539220316507, 40],
+		name: "甬子峪基站监控",
+		url: "http://210.14.146.43:88/hls/101/101.m3u8"
 	}, {
 		point: [116.39070922224838, 39.919404342345835, 10.24838062187865],
 		name: "宫门2监控画面",
-		url: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+		url: "http://210.14.146.43:88/hls/201/201.m3u8"
 	}, {
 		point: [116.39076678990257, 39.91878897900483, 9.584467686712157],
 		name: "宫门3监控画面",
-		url: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+		url: "http://210.14.146.43:88/hls/301/301.m3u8"
 	}, {
 		point: [116.39074840480014, 39.91785909380745, 9.584467686712157],
 		name: "宫门4监控画面",
-		url: "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+		url: "http://210.14.146.43:88/hls/401/401.m3u8"
 	}, {
 		point: [116.39079193553945, 39.91703930694239, 9.584467686712157],
 		name: "宫门5监控画面",
@@ -565,10 +571,10 @@ function addFloatMarkers() {
 var content;
 var infoDiv = '<div id="trackPopUp" style="display:none;">' +
 	'<div id="trackPopUpContent" class="leaflet-popup" style="top:5px;left:0;">' +
-	'<a class="leaflet-popup-close-button" href="#">×</a>' +
+	'<a class="leaflet-popup-close-button" style="z-index:1000" href="#">×</a>' +
 	'<div class="leaflet-popup-content-wrapper">' +
 	'<div id="trackPopUpLink" class="leaflet-popup-content" style="max-width:100%;">' +
-	'autoplay="true"></video>' +
+	'autoplay="true">' +
 	'</div>' +
 	'</div>' +
 	'<div class="leaflet-popup-tip-container">' +
@@ -615,9 +621,12 @@ function showPop(pick, movement, info) {
 	// 转换坐标
 	var destination = Cesium.Cartesian3.fromDegrees(point[0], point[1], 3000.0);
 	// destination是我们点击之后,flyto的位置
-	content =
-		'<div style="padding-bottom: 5px; font-size: 20px; color: #8aaafb;">' + info.name + '</div>' +
-		'<video class="viewVideo" src="' + info.url + '" autoplay="true"></video>';
+	// content =
+	// 	'<div style="padding-bottom: 5px; font-size: 20px; color: #8aaafb;">' + info.name + '</div>' +
+	// 	'<video class="viewVideo" src="' + info.url + '" autoplay="true"></video>';
+
+	content = '<video id="player-container-id" width="414" height="270" preload="auto" playsinline webkit-playsinline></video>';
+
 	// content是核心,你想弹出的东西,就全部放在这里面
 	var obj = {
 		position: movement.position,
@@ -626,6 +635,21 @@ function showPop(pick, movement, info) {
 	};
 	// 构造一个参数,包括事件、 位置、已经弹框
 	infoWindow(pick, movement, obj);
+	var player = TCPlayer('player-container-id', {
+		autoplay: true, 
+		m3u8: info.url,
+		autoplay:true,
+		controls:true,
+		controlBar:{
+			playToggle:false,
+			progressControl:false,
+			currentTimeDisplay:false,
+			durationDisplay:false,
+			timeDivider:false,
+			playbackRateMenuButton:false
+		}
+	}); // player-container-id 为播放器容器 ID，必须与 html 中一致
+	player.src(info.url); 
 }
 
 function infoWindow(pick, movement, obj) {
@@ -655,7 +679,6 @@ function infoWindow(pick, movement, obj) {
 			function positionPopUp(c) {
 				var x = c.x - ($('#trackPopUpContent').width()) / 2 + 360;
 				var y = c.y - ($('#trackPopUpContent').height()) + 40;
-				debugger
 				// 为所有匹配元素(#trackPopUpContent)设置transform的值为 'translate3d(' + x + 'px, ' + y + 'px, 0)'
 				$('#trackPopUpContent').css('transform', 'translate3d(' + x + 'px, ' + y + 'px, 0)');
 			}
